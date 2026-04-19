@@ -1,0 +1,440 @@
+:root {
+  --accent: #c8602a;         /* el naranja que uso de color principal */
+  --accent-light: #f5e8df;   /* versión clarita del naranja para fondos */
+  --dark: #1c1a17;           /* casi negro, para la cabecera y textos importantes */
+  --mid: #4a4640;            /* gris oscuro para el texto normal */
+  --muted: #8a8480;          /* gris más claro para textos secundarios */
+  --border: #e4dfd8;         /* color de los bordes y líneas separadoras */
+  --bg: #faf8f5;             /* fondo general de la página, blanco cálido */
+  --white: #ffffff;          /* blanco puro para las tarjetas */
+
+  /* fuentes: una para títulos (con serifa, más elegante) y otra para el texto */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+}
+
+
+/* --- RESET BÁSICO ---
+   Esto elimina los márgenes y paddings que pone el navegador por defecto
+   porque cada navegador los pone distintos y así evitamos sorpresas */
+*, *::before, *::after {
+  box-sizing: border-box; /* hace que el padding no agrande los elementos */
+  margin: 0;
+  padding: 0;
+}
+
+/* scroll-behavior: smooth hace que al pulsar un enlace del nav baje suavemente en vez de saltar */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos base del cuerpo de la página */
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--dark);
+  font-size: 16px;
+  line-height: 1.7; /* espacio entre líneas, más de 1 es más cómodo de leer */
+}
+
+
+/* --- CABECERA (header) ---
+   El bloque oscuro grande de arriba con el título */
+header {
+  background: var(--dark);  /* fondo casi negro */
+  color: var(--white);
+  padding: 72px 24px 60px;  /* arriba, lados, abajo */
+  text-align: center;
+}
+
+/* Limita el ancho del contenido del header y lo centra */
+.header-inner {
+  max-width: 680px;
+  margin: 0 auto; /* auto en los lados = centrado horizontal */
+}
+
+/* La etiquetita naranja de "Gestión Empresarial" */
+.header-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em; /* espaciado entre letras para que quede más elegante */
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 14px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+/* El título H1 dentro del header */
+header h1 {
+  font-family: var(--font-display); /* fuente con serifa para los títulos */
+  /* clamp(mínimo, preferido, máximo) - así el tamaño se adapta a la pantalla */
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em; /* un pelín más junto, queda mejor en títulos grandes */
+}
+
+/* El párrafo de descripción debajo del título */
+.header-sub {
+  font-size: 16px;
+  color: #a09c96; /* gris claro, que resalte menos que el título */
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+
+/* --- NAVEGACIÓN (nav) ---
+   La barra con los enlaces que se queda fija arriba */
+.main-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;       /* los enlaces se ponen en fila */
+  overflow-x: auto;    /* si no caben, aparece scroll horizontal (útil en móvil) */
+  position: sticky;    /* se queda pegada arriba al hacer scroll */
+  top: 0;              /* pegada al borde superior */
+  z-index: 100;        /* que se quede por encima de todo lo demás */
+  padding: 0 24px;
+}
+
+/* Cada enlace del nav */
+.main-nav a {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mid);
+  text-decoration: none; /* quitamos el subrayado típico de los enlaces */
+  padding: 14px 16px;
+  border-bottom: 2px solid transparent; /* el borde está pero transparente, para el hover */
+  white-space: nowrap; /* que no parta el texto en dos líneas */
+  /* transition: hace que el cambio de color sea suave en vez de instantáneo */
+  transition: color 0.2s, border-color 0.2s;
+}
+
+/* Cuando el ratón está encima del enlace */
+.main-nav a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent); /* aparece la línea naranja debajo */
+}
+
+
+/* --- CONTENIDO PRINCIPAL (main) ---
+   El área central donde van todas las secciones */
+main {
+  max-width: 820px;
+  margin: 0 auto; /* centrado */
+  padding: 0 24px 80px;
+}
+
+
+/* --- SECCIONES ---
+   Cada bloque de contenido (¿qué es?, ¿para qué sirve?...) */
+section {
+  padding: 56px 0 48px; /* espacio arriba y abajo */
+  border-bottom: 1px solid var(--border); /* línea separadora entre secciones */
+}
+
+/* La última sección no necesita línea abajo */
+section:last-child {
+  border-bottom: none;
+}
+
+
+/* --- TÍTULOS H2 (los de cada sección) --- */
+h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px;
+  display: flex;          /* para poner el numerito y el texto en la misma línea */
+  align-items: baseline;  /* alineados por la línea base del texto */
+  gap: 14px;              /* espacio entre el número y el título */
+}
+
+/* El numerito naranja (01, 02...) que va antes de cada título */
+.num {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  flex-shrink: 0; /* que no se encoja si no hay espacio */
+}
+
+/* Títulos H3 (subtítulos dentro de las tarjetas) */
+h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+/* Párrafos normales */
+p { margin-bottom: 12px; }
+p:last-child { margin-bottom: 0; } /* el último párrafo no necesita margen abajo */
+p.mt { margin-top: 14px; }         /* clase auxiliar para añadir margen arriba */
+
+/* Texto en negrita */
+strong {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+
+/* --- TARJETAS (sección de funciones) ---
+   El grid de tarjetas con emojis */
+
+/* El contenedor que pone las tarjetas en fila */
+.cards-grid {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+/* Cada tarjeta individual */
+.card {
+  flex: 1; /* reparte el espacio disponible a partes iguales entre todas las tarjetas */
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 16px;
+  /* transition para animar el hover suavemente */
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* Cuando pasas el ratón por encima, la tarjeta sube un poco */
+.card:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07); /* sombra suave */
+  transform: translateY(-2px); /* sube 2 píxeles */
+}
+
+/* El emoji grande de cada tarjeta */
+.card-icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* El título dentro de la tarjeta */
+.card h3 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* El texto descriptivo dentro de la tarjeta */
+.card p {
+  font-size: 13px;
+  color: var(--muted); /* más clarito que el texto normal */
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+/* --- TABLAS ---
+   Estilos para las dos tablas de la página */
+table {
+  width: 100%;
+  border-collapse: collapse; /* quita el espacio doble entre bordes de celdas */
+  font-size: 14px;
+  margin-top: 20px;
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden; /* necesario para que el border-radius funcione con la tabla */
+  border: 1px solid var(--border);
+}
+
+/* Cabecera de la tabla (la fila de títulos) */
+th {
+  background: var(--dark); /* fondo casi negro */
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+/* Celdas normales de datos */
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top; /* el texto empieza por arriba, no centrado */
+  line-height: 1.55;
+  color: var(--mid);
+}
+
+/* La última fila no necesita línea abajo */
+tr:last-child td { border-bottom: none; }
+
+/* Efecto hover en las filas */
+tr:hover td { background: #fdf9f6; }
+
+
+/* --- BADGES (etiquetas de colores en la tabla de módulos) ---
+   Son los spanitos de colores como "Core", "Operativos"... */
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+
+/* Un color diferente para cada tipo de módulo */
+.badge-core { background: #e8e4fd; color: #4a3fbf; } /* morado */
+.badge-ops  { background: #def4ea; color: #1a7a45; } /* verde */
+.badge-sup  { background: #fde8e8; color: #b83232; } /* rojo */
+.badge-ana  { background: #e8f3fd; color: #1a5fa0; } /* azul */
+.badge-sec  { background: #fdf3e0; color: #a06a10; } /* amarillo */
+
+
+/* --- CAJA DESTACADA (sección de integración) ---
+   El recuadro con fondo naranja claro y borde izquierdo */
+.highlight-box {
+  background: var(--accent-light); /* naranja muy clarito */
+  border-left: 4px solid var(--accent); /* línea naranja a la izquierda */
+  padding: 24px 28px;
+  border-radius: 0 8px 8px 0; /* redondeado solo en la parte derecha */
+  margin-top: 8px;
+}
+
+
+/* --- LISTA DE BENEFICIOS ---
+   La lista con líneas naranja a la izquierda */
+.benefits-list {
+  list-style: none; /* quitamos los puntos por defecto */
+  padding: 0;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column; /* los items en vertical */
+  gap: 10px;
+}
+
+/* Cada item de la lista */
+.benefits-list li {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent); /* línea naranja a la izquierda */
+  padding: 14px 18px;
+  border-radius: 0 6px 6px 0;
+  font-size: 15px;
+  color: var(--mid);
+}
+
+
+/* --- TABLA DE COMPARATIVA (sección 7) ---
+   La tabla grande con los 4 ERPs */
+
+/* Wrapper para que la tabla tenga scroll horizontal en pantallas pequeñas */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+/* La tabla dentro del wrapper */
+.table-comp {
+  min-width: 680px; /* mínimo este ancho, si no cabe aparece el scroll del wrapper */
+  margin: 0;
+  border: none;     /* el borde lo pone el wrapper, no la tabla */
+  border-radius: 0;
+}
+
+/* La primera columna (nombres de los ERPs) un poco más estrecha */
+.table-comp th:first-child { width: 130px; }
+
+/* Nombre del ERP en negrita y más oscuro */
+.erp-name {
+  font-weight: 700;
+  color: var(--dark);
+  font-size: 14px;
+}
+
+/* Las etiquetas de precio (De pago, Suscripción, Freemium) */
+.price-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 4px;
+  letter-spacing: 0.03em;
+}
+
+/* Rojo = caro */
+.price-high { background: #fde8e8; color: #b83232; }
+/* Naranja = precio medio */
+.price-mid  { background: #fdf3e0; color: #a06a10; }
+/* Verde = gratis o económico */
+.price-free { background: #def4ea; color: #1a7a45; }
+
+
+/* --- CAJA DE CONCLUSIÓN ---
+   El recuadro blanco con la lista de resumen al final */
+.conclusion {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  margin-top: 28px;
+}
+
+/* Lista dentro de la conclusión */
+.conclusion ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Cada item de la conclusión */
+.conclusion li {
+  font-size: 15px;
+  color: var(--mid);
+  padding-left: 16px;
+  position: relative; /* necesario para el ::before */
+}
+
+/* El guion naranja que aparece antes de cada item
+   ::before añade contenido decorativo sin tocar el HTML */
+.conclusion li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+
+/* --- PIE DE PÁGINA (footer) --- */
+footer {
+  background: var(--dark);
+  color: #6b6460; /* gris clarito sobre fondo oscuro */
+  text-align: center;
+  padding: 28px 24px;
+  font-size: 13px;
+}
+
+
+/* --- RESPONSIVE (adaptación a móvil) ---
+   Cuando la pantalla es más pequeña de 560px cambiamos algunas cosas */
+@media (max-width: 560px) {
+  /* En móvil las tarjetas se ponen en columna para que no queden muy pequeñas */
+  .cards-grid { flex-direction: column; }
+
+  /* Los títulos un poco más pequeños */
+  h2 { font-size: 22px; }
+
+  /* Los enlaces del nav más compactos */
+  .main-nav a { padding: 12px 10px; font-size: 12px; }
+}
